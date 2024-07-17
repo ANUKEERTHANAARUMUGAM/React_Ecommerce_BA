@@ -28,6 +28,18 @@ builder.Services.AddSwaggerGen();
 
 
 
+//cors
+
+builder.Services.AddCors(policy => policy.AddPolicy("corspolicy", 
+                                                    build =>
+                                                        {
+                                                            build.WithOrigins("http://localhost:3000")
+                                                            .AllowAnyMethod()
+                                                            .AllowAnyHeader();
+                                                        }));
+
+
+
 /*var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -65,7 +77,7 @@ app.MapControllers();
 app.Run();
 */
 
-builder.Services.AddCors(options =>
+/*builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowSpecificOrigin",
         builder => builder
@@ -73,20 +85,22 @@ builder.Services.AddCors(options =>
             .AllowAnyHeader()
             .AllowAnyMethod());
 });
-
+*/
 
 var app = builder.Build();
-app.UseCors("AllowAllOrigins");
+/*
+app.UseCors("AllowAllOrigins");*/
 
 
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-        app.UseDeveloperExceptionPage();
+      // app.UseDeveloperExceptionPage();
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+app.UseCors("corspolicy");
 
 app.UseHttpsRedirection();
 

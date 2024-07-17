@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\React_Ecommerce_BE.props" />
+</Project>
